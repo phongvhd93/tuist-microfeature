@@ -1,5 +1,4 @@
 import ProjectDescription
-import ProjectDescriptionHelpers
 import Darwin
 
 /// Project helpers are functions that simplify the way you define your project.
@@ -9,11 +8,12 @@ import Darwin
 
 enum Constants {
 
-    static let orgName = "phong.vo"
+    static let orgName = "co.nimblehq"
     static let featurePath = "Features"
     static let examplePath = "Example"
     static let sourcesPath = "Sources"
     static let resoucesPath = "Resources"
+    static let scriptPath = "Scripts"
     static let exampleAppSuffix = "ExampleApp"
 }
 
@@ -117,6 +117,7 @@ extension Project {
         platform: Platform,
         dependencies: [TargetDependency]
     ) -> [Target] {
+        let buildPhaseScripts = buildPhaseScript()
         let mainTarget = Target(
             name: name,
             platform: platform,
@@ -128,9 +129,20 @@ extension Project {
                 "\(Constants.featurePath)/\(name)/Application/**"
             ],
             resources: ["\(Constants.featurePath)/\(name)/\(Constants.resoucesPath)/**"],
+            scripts: buildPhaseScripts,
             dependencies: dependencies
         )
 
         return [mainTarget]
+
+    }
+
+    private static func buildPhaseScript() -> [TargetScript] {
+        let swiftLintScript = TargetScript.pre(
+            path: "\(Constants.scriptPath)/run_swiftlint.sh",
+            name: "Run SwiftLint"
+        )
+
+        return [swiftLintScript]
     }
 }

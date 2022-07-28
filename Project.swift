@@ -82,7 +82,7 @@ let profileModule = Module(
 let localHelper = LocalHelper(name: "MyPlugin")
 
 let project = Project.app(
-    name: "EcomTuist",
+    name: "xcodecloud-demo-growth",
     platform: .iOS,
     modules: [
         commonViewsModule,

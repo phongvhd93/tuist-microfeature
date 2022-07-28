@@ -21,7 +21,7 @@ struct TabbarView: View {
                 .withTabbar($selection, tab: .search)
             MyCartScreen()
                 .withTabbar($selection, tab: .myCart)
-            ProfileScreen()
+            ProfileScreen(test: "")
                 .withTabbar($selection, tab: .profile)
         }
         .accentColor(.indigoViolet)
